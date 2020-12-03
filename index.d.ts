@@ -7,11 +7,16 @@ import {
 import * as Immutable from 'immutable'
 import * as React from 'react'
 
+interface toRAWFn {
+  (noStringify: true): RawDraftContentState;
+  (noStringify: false): string;
+}
+
 export type EditorState = _EditorState & {
   [key: string]: any;
   setConvertOptions(option?: Object): void;
   toHTML(option?: Object): string;
-  toRAW(noStringify?: boolean): RawDraftContentState | string;
+  toRAW: toRAWFn;
   toText(): string;
   isEmpty(): boolean;
 };
