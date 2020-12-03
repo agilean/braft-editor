@@ -1,29 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import mergeClassNames from '@maximusft/mergeclassnames';
+import './style.scss'
+import React from 'react'
 
-import './style.scss';
+export default (props) => {
 
-const Switch = (props) => {
-  const { active, onClick, className } = props;
+  const { active, onClick, className } = props
 
   return (
-    <div
-      role="presentation"
-      onClick={() => onClick()}
-      className={mergeClassNames('bf-switch', className, active && 'active')}
-    />
-  );
-};
+    <div onClick={() => onClick()} className={'bf-switch ' + className + (active ? ' active' : '')}></div>
+  )
 
-Switch.defaultProps = {
-  onClick: () => null,
-};
-
-Switch.propTypes = {
-  active: PropTypes.any,
-  onClick: PropTypes.any,
-  className: PropTypes.any,
-};
-
-export default Switch;
+}

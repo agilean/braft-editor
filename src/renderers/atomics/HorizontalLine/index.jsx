@@ -1,29 +1,23 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { ContentUtils } from 'braft-utils';
+import React from 'react'
+import { ContentUtils } from 'braft-utils'
+import './style.scss'
 
-import './style.scss';
+export default class HorizontalLine extends React.Component {
 
-const HorizontalLine = ({ editorState, block, editor }) => {
-  const removeHorizontalLine = () => {
-    editor.setValue(ContentUtils.removeBlock(editorState, block));
-  };
+  render () {
 
-  return (
-    <div className="bf-hr">
-      <div className="bf-media-toolbar">
-        <a role="presentation" onClick={removeHorizontalLine}>
-          &#xe9ac;
-        </a>
+    return (
+      <div className='bf-hr'>
+        <div className='bf-media-toolbar'>
+          <a onClick={this.removeHorizontalLine}>&#xe9ac;</a>
+        </div>
       </div>
-    </div>
-  );
-};
+    )
 
-HorizontalLine.propTypes = {
-  editor: PropTypes.any,
-  editorState: PropTypes.any,
-  block: PropTypes.any,
-};
+  }
 
-export default HorizontalLine;
+  removeHorizontalLine = () => {
+    this.props.editor.setValue(ContentUtils.removeBlock(this.props.editorState, this.props.block))
+  }
+
+}

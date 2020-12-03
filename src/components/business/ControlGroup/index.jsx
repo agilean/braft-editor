@@ -1,12 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
 
-const ControlGroup = ({ children }) => (
-  <div className="control-item-group">{children}</div>
-);
+export default (props) => {
 
-ControlGroup.propTypes = {
-  children: PropTypes.any,
-};
+  if (React.Fragment) {
+    return <React.Fragment>{props.children}</React.Fragment>
+  } else {
+    return <div className="control-item-group">{props.children}</div>
+  }
 
-export default ControlGroup;
+}
