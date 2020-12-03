@@ -1,6 +1,7 @@
 import './style.scss'
 import React from 'react'
 import { ContentUtils } from 'braft-utils'
+import { EditorState, SelectionState } from 'draft-js'
 import Switch from 'components/common/Switch'
 import { imageControlItems } from 'configs/controls'
 
@@ -120,11 +121,11 @@ export default class Image extends React.Component {
     return (
       <div className='bf-media'>
         <div
+          tabIndex="-1"
           style={imageStyles}
+          onClick={this.selectionImage}
+          onBlur={this.hideToolbar}
           draggable={true}
-          onMouseEnter={this.showToolbar}
-          onMouseMove={this.showToolbar}
-          onMouseLeave={this.hideToolbar}
           onDragStart={this.handleDragStart}
           onDragEnd={this.handleDragEnd}
           ref={instance => this.mediaEmbederInstance = instance}
@@ -483,7 +484,6 @@ export default class Image extends React.Component {
       this.setState({
         toolbarVisible: true
       }, () => {
-        this.lockEditor()
         this.setState({ toolbarOffset: this.calcToolbarOffset() })
       })
     }
@@ -495,10 +495,15 @@ export default class Image extends React.Component {
 
     this.setState({
       toolbarVisible: false
-    }, () => {
-      this.unlockEditor()
-      // this.props.editor.requestFocus()
     })
+  }
+
+  selectionImage = (event) => {
+    const { block, editorState, editor } = this.props
+    const newSelection = SelectionState.createEmpty(block.getKey())
+    const newState = EditorState.forceSelection(editorState, newSelection)
+    editor.setValue(newState)
+    this.showToolbar(event)
   }
 
 }
