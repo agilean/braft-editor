@@ -45,6 +45,7 @@ module.exports = {
           {
             loader: 'url-loader',
             options: {
+              esModule: false,
               limit: 20000,
               name: '[name].[ext]',
               publicPath: './'

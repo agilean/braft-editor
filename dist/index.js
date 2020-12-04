@@ -3722,7 +3722,6 @@ var Image_Image = /*#__PURE__*/function (_React$Component) {
     });
 
     defineProperty_default()(assertThisInitialized_default()(_this), "hideToolbar", function (event) {
-      console.log('image on blur');
       event.preventDefault();
 
       _this.setState({
