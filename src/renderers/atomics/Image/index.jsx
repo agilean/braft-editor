@@ -106,12 +106,18 @@ export default class Image extends React.Component {
 
       if (typeof item === 'string' && imageControlItems[item]) {
         return (
-          <a className={item === 'link' && link ? 'active' : ''} key={index} onClick={() => this.executeCommand(imageControlItems[item].command)}>
+          <a className={item === 'link' && link ? 'active' : ''} key={index} onClick={(event) => {
+            this.preventEvent(event)
+            this.executeCommand(imageControlItems[item].command)
+          }}>
             {imageControlItems[item].text}
           </a>
         )
       } else if (item && (item.render || item.text)) {
-        return item.render ? item.render(mediaData, this.props.block) : <a key={index} onClick={() => item.onClick && this.executeCommand(item.onClick)}>{item.text}</a>
+        return item.render ? item.render(mediaData, this.props.block) : <a key={index} onClick={(event) => {
+          this.preventEvent(event)
+          item.onClick && this.executeCommand(item.onClick)
+        }}>{item.text}</a>
       } else {
         return null
       }
@@ -231,7 +237,7 @@ export default class Image extends React.Component {
 
   }
 
-  preventDragEvent = (event) => {
+  preventEvent = (event) => {
     event.stopPropagation()
     event.preventDefault()
   }

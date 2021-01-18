@@ -3466,7 +3466,7 @@ var Image_Image = /*#__PURE__*/function (_React$Component) {
       };
     });
 
-    defineProperty_default()(assertThisInitialized_default()(_this), "preventDragEvent", function (event) {
+    defineProperty_default()(assertThisInitialized_default()(_this), "preventEvent", function (event) {
       event.stopPropagation();
       event.preventDefault();
     });
@@ -3793,15 +3793,19 @@ var Image_Image = /*#__PURE__*/function (_React$Component) {
           return external_react_default.a.createElement("a", {
             className: item === 'link' && link ? 'active' : '',
             key: index,
-            onClick: function onClick() {
-              return _this2.executeCommand(imageControlItems[item].command);
+            onClick: function onClick(event) {
+              _this2.preventEvent(event);
+
+              _this2.executeCommand(imageControlItems[item].command);
             }
           }, imageControlItems[item].text);
         } else if (item && (item.render || item.text)) {
           return item.render ? item.render(mediaData, _this2.props.block) : external_react_default.a.createElement("a", {
             key: index,
-            onClick: function onClick() {
-              return item.onClick && _this2.executeCommand(item.onClick);
+            onClick: function onClick(event) {
+              _this2.preventEvent(event);
+
+              item.onClick && _this2.executeCommand(item.onClick);
             }
           }, item.text);
         } else {
